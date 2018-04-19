@@ -1,0 +1,100 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.toolbar {
+  position: fixed;
+  /* Make sure the toolbar will stay on top of the content as it scrolls past. */
+  z-index: 2;
+}
+
+h1.app-name {
+  margin-left: 8px;
+}
+
+.sidenav-container {
+  /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
+     causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
+  flex: 1;
+  margin-top: 90px;
+  max-width: 97vw;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sidenav-contents {
+  flex: 1;
+  max-width: 97vw;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.is-mobile .sidenav-container {
+  /* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the
+     `<body>` to be our scrolling element for mobile layouts. */
+  flex: 1 0 auto;
+}
+
+.flex-spacer {
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.mat-sidenav {
+  width: 20vw;
+}
+
+.sidenav-header {
+  background-image: url("../assets/variant1.jpg");
+  background-size: cover;
+  color: white;
+  text-shadow: black 0.1em 0.1em 0.2em;
+}
+
+.sidenav-header .avatar {
+  text-shadow: none !important;
+  box-shadow: 0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);
+  background-color: #009688;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  padding: 0;
+  line-height: 40px;
+  vertical-align: baseline;
+  text-align: center;
+}
+
+.sidenav-header .name {
+  font-size: 14pt;
+}
+
+.sidenav-header .email {
+  font-size: 10pt;
+}
+
+.sidenav-header .mat-toolbar-row {
+  height: 45px !important;
+}
+
+.nav-active {
+  border-left: 5px solid #004D40;
+  background-color: #E0F2F1;
+}
+
+.mat-nav-list {
+  padding-top: 0;
+}
+
+.fab-abs-button{
+  position: absolute;
+  right: 30px;
+  bottom: 40px;
+}

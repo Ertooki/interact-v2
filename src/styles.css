@@ -1,1 +1,45 @@
 /* You can add global styles to this file, and also import other style files */
+html, body, .mat-drawer-container {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: rgb(35,39,65);
+  background: -moz-linear-gradient(-45deg, rgba(35,39,65,1) 0%, rgba(66,158,229,1) 100%);
+  background: -webkit-linear-gradient(-45deg, rgba(35,39,65,1) 0%,rgba(66,158,229,1) 100%);
+  background: linear-gradient(135deg, rgba(35,39,65,1) 0%,rgba(66,158,229,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#232741', endColorstr='#429ee5',GradientType=1 );
+}
+
+.auth-card .mat-tab-label {
+  color: white;
+}
+
+.auth-card .mat-form-field-label {
+  color: white;
+}
+
+.auth-card .mat-raised-button[disabled] {
+  color: #fff6 !important;
+}
+
+.auth-card .mat-form-field .mat-form-field-underline {
+  background-color: white;
+}
+
+.auth-card .mat-form-field-invalid .mat-input-element {
+  caret-color: #FFC107 !important;
+}
+
+.auth-card  .mat-form-field-invalid .mat-form-field-ripple {
+  background-color: #FFC107 !important;
+}
+
+.auth-card .mat-form-field-invalid .mat-form-field-label {
+  color: #FFC107 !important;
+}
+
+.auth-card .mat-select.mat-select-invalid .mat-select-arrow {
+  color: #FFC107 !important;
+}

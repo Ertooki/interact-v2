@@ -1,0 +1,61 @@
+<h2 mat-dialog-title>Додати інцидент</h2>
+<mat-dialog-content>
+  <form [formGroup]="incidentForm">
+    <mat-form-field class="input-full-width">
+      <mat-select placeholder="Тип" formControlName = "type">
+        <mat-option *ngFor="let type of types" [value]="type.symbol">
+          {{ type.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="input-full-width">
+      <mat-select placeholder="Рівень загрози" formControlName = "threat">
+        <mat-option *ngFor="let threat of threats" [value]="threat.level">
+          {{ threat.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="input-full-width">
+      <mat-select placeholder="Хто може бачити" formControlName = "scopeView" (selectionChange)="scopeCheck($event)">
+        <mat-option *ngFor="let scope of scopes" [value]="scope.value">
+          {{ scope.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="input-full-width">
+      <mat-select placeholder="Хто може змінювати" formControlName = "scopeUpdate">
+        <mat-option *ngFor="let scope of scopes" [value]="scope.value">
+          {{ scope.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="full-chip-list">
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="addAuto($event)">
+        <mat-option *ngFor="let option of options" [value]="option">
+          {{ option.name }}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-chip-list #chipList>
+        <mat-chip *ngFor="let tag of tags"
+                  [removable]="true" (remove)="remove(tag)">
+          {{tag}}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+        <input placeholder="Додати тег..."
+               formControlName = "tags"
+               [matChipInputFor]="chipList"
+               [matChipInputAddOnBlur]="true"
+               (matChipInputTokenEnd)="clear($event)"
+               [matAutocomplete]="auto"
+               id="tags_input"/>
+      </mat-chip-list>
+    </mat-form-field>
+    <mat-form-field class="input-full-width">
+      <textarea matInput placeholder="Додаткова інформація" formControlName="info"></textarea>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="createIncident()">Додати</button>
+  <button mat-button mat-dialog-close>Закрити</button>
+</mat-dialog-actions>
