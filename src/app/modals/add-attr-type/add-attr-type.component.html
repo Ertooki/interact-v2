@@ -1,0 +1,19 @@
+<h2 mat-dialog-title>Додати тип атрибутів</h2>
+<mat-dialog-content>
+  <form [formGroup]="form">
+    <mat-form-field class="input-full-width">
+      <input matInput placeholder="Назва" formControlName="name">
+    </mat-form-field>
+    <mat-form-field class="input-full-width">
+      <mat-select placeholder="Група інформації" formControlName = "group">
+        <mat-option *ngFor="let group of groups" [value]="group.value">
+          {{ group.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="submit()">Додати</button>
+  <button mat-button mat-dialog-close>Закрити</button>
+</mat-dialog-actions>

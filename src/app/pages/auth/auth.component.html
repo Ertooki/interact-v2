@@ -1,0 +1,46 @@
+<div class="center-panel">
+  <particles [params]="particleParams" [style]="particleStyle" [width]="particleWidth" [height]="particleHeight"></particles>
+  <mat-card class="auth-card">
+    <mat-tab-group mat-stretch-tabs [(selectedIndex)]="selectedIndex" color="accent">
+      <mat-tab label='Вхід'>
+        <form [formGroup]="signinForm">
+          <mat-form-field class="input-full-width" color="accent">
+            <input matInput placeholder="Email" formControlName = "email" type="email">
+          </mat-form-field>
+          <mat-form-field class="input-full-width" color="accent">
+            <input matInput placeholder="Пароль" formControlName = "pwd" type="password">
+          </mat-form-field>
+          <button mat-raised-button color="primary" [disabled] = "!signinForm.valid" (click)="logIn()" class="input-full-width">
+            Увійти
+          </button>
+        </form>
+      </mat-tab>
+      <mat-tab label='Реєстрація'>
+        <form [formGroup]="signupForm">
+          <mat-form-field class="input-full-width" color="accent">
+            <input matInput placeholder="Email" formControlName = "email" type="email">
+          </mat-form-field>
+          <mat-form-field class="input-full-width" color="accent">
+            <input matInput placeholder="Ім'я користувача" formControlName = "name" type="text">
+          </mat-form-field>
+          <mat-form-field class="input-full-width" color="accent">
+            <input matInput placeholder="Пароль" formControlName = "pwd" type="password">
+          </mat-form-field>
+          <mat-form-field class="input-full-width" color="accent">
+            <input matInput placeholder="Підтвердіть пароль" formControlName = "cpwd" type="password">
+          </mat-form-field>
+          <mat-form-field class="input-full-width" color="accent">
+            <mat-select placeholder="Організація" formControlName = "organization">
+              <mat-option *ngFor="let organization of organizations" [value]="organization.id">
+                {{ organization.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <button mat-raised-button color="primary" [disabled] = "!signupForm.valid" (click)="signUp()" class="input-full-width">
+            Зареєструватися
+          </button>
+        </form>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card>
+</div>

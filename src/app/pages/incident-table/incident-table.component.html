@@ -1,0 +1,69 @@
+<div *ngIf="dataSource.loading$ | async">
+  <mat-spinner></mat-spinner>
+
+</div>
+<form [formGroup]="filterForm">
+  <mat-form-field>
+    <mat-select placeholder="Область бачення" formControlName = "scopeView" (selectionChange)="onScopeChange($event)">
+      <mat-option *ngFor="let scope of scopes" [value]="scope.value">
+        {{ scope.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field *ngIf="user.role === 'admin'">
+    <mat-select placeholder="Організація" formControlName = "organization" (selectionChange)="onOrganizationChange($event)">
+      <mat-option *ngFor="let organization of organizations" [value]="organization.id">
+        {{ organization.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>
+<mat-table #table [dataSource]="dataSource" class="mat-elevation-z3">
+
+  <!-- ID Column -->
+  <ng-container matColumnDef="id">
+    <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+  </ng-container>
+
+  <!-- Type Column -->
+  <ng-container matColumnDef="organization">
+    <mat-header-cell *matHeaderCellDef> Організація </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.organizationName}} </mat-cell>
+  </ng-container>
+
+  <!-- Date Column -->
+  <ng-container matColumnDef="date">
+    <mat-header-cell *matHeaderCellDef> Дата </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.date}} </mat-cell>
+  </ng-container>
+
+  <!-- Tags Column -->
+  <ng-container matColumnDef="tags">
+    <mat-header-cell *matHeaderCellDef> Теги </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <mat-chip-list>
+        <mat-chip  *ngFor="let tag of element.tags" [selectable]="false">
+          {{tag}}
+        </mat-chip>
+      </mat-chip-list>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Info Column -->
+  <ng-container matColumnDef="attributeCount">
+    <mat-header-cell *matHeaderCellDef> Кількість атрибутів </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.attributeCount}} </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="showIncident(row)"></mat-row>
+</mat-table>
+
+<mat-paginator #paginator
+               [length]="this.dataSource.elemCount"
+               [pageSize]="10"
+               [pageSizeOptions]="[5, 10, 20]"
+               [showFirstLastButtons]="true"
+               class="mat-elevation-z3">
+</mat-paginator>

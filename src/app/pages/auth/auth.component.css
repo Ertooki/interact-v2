@@ -1,0 +1,19 @@
+.center-panel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height:100%;
+}
+
+.input-full-width {
+  width: 100%;
+}
+
+.auth-card {
+  background-color: rgba(0, 0, 0, 0.45);
+  color: white;
+}
+
+.mat-select-content {
+  background-color: rgba(0, 0, 0, 0.45);
+}

@@ -1,0 +1,23 @@
+<h2 mat-dialog-title>Додати відповідального</h2>
+<mat-dialog-content>
+  <form [formGroup]="form">
+    <mat-form-field class="input-full-width">
+      <input type="text" placeholder="Ім'я користувача" matInput formControlName = "user" [matAutocomplete]="auto" [errorStateMatcher]="matcher">
+      <mat-error *ngIf="form.get('user').hasError('nomatch')">
+        Немає такого користувач
+      </mat-error>
+      <mat-error *ngIf="form.get('user').hasError('invalid')">
+        Виберіть існуючого користувача
+      </mat-error>
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+        <mat-option *ngFor="let user of users" [value]="user">
+          {{ user.username }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="submit()" [disabled]="form.invalid">Додати</button>
+  <button mat-button mat-dialog-close>Закрити</button>
+</mat-dialog-actions>

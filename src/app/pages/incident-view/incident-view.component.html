@@ -1,0 +1,118 @@
+<mat-card>
+  <mat-tab-group *ngIf="event" (selectedTabChange)="tabChanged($event)">
+    <mat-tab label="Загальна інформація">
+      <mat-table #table [dataSource]="mainData">
+
+        <!-- Parameter Column -->
+        <ng-container matColumnDef="parameter">
+          <mat-cell *matCellDef="let element"> {{element.parameter}} </mat-cell>
+        </ng-container>
+
+        <!-- Value Column -->
+        <ng-container matColumnDef="value">
+          <mat-cell *matCellDef="let element">
+            <div *ngIf="element.parameter !== 'Теги'; then all else tags"></div>
+            <ng-template #all>{{element.value}}</ng-template>
+            <ng-template #tags>
+              <mat-chip-list #chipList>
+                <mat-chip *ngFor="let tag of element.value">
+                  {{tag}}
+                </mat-chip>
+              </mat-chip-list>
+            </ng-template>
+
+          </mat-cell>
+        </ng-container>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    </mat-tab>
+    <mat-tab label="IOC">
+      <div class="spinner-container" *ngIf="attrDataSource.loading$ | async">
+        <mat-spinner></mat-spinner>
+      </div>
+      <mat-table #table [dataSource]="attrDataSource" class="mat-elevation-z3">
+
+        <!-- ID Column -->
+        <ng-container matColumnDef="id">
+          <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+        </ng-container>
+
+        <!-- Value Column -->
+        <ng-container matColumnDef="value">
+          <mat-header-cell *matHeaderCellDef> Значення </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.value}} </mat-cell>
+        </ng-container>
+
+        <!-- Type Column -->
+        <ng-container matColumnDef="type">
+          <mat-header-cell *matHeaderCellDef> Тип </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.attributeType.name}} </mat-cell>
+        </ng-container>
+
+        <!-- Author Column -->
+        <ng-container matColumnDef="author">
+          <mat-header-cell *matHeaderCellDef> Автор </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.author}} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="attrDisplayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: attrDisplayedColumns;"></mat-row>
+      </mat-table>
+
+      <mat-paginator #paginator
+                     [length]="this.attrDataSource.elemCount"
+                     [pageSize]="10"
+                     [pageSizeOptions]="[5, 10, 20]"
+                     [showFirstLastButtons]="true"
+                     (page)="loadAttributesPage()"
+                     class="mat-elevation-z3">
+      </mat-paginator>
+    </mat-tab>
+    <mat-tab label="Корисна інформація">
+      <div class="spinner-container" *ngIf="attrDataSource.loading$ | async">
+        <mat-spinner></mat-spinner>
+      </div>
+      <mat-table #table [dataSource]="attrDataSource" class="mat-elevation-z3">
+
+        <!-- ID Column -->
+        <ng-container matColumnDef="id">
+          <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+        </ng-container>
+
+        <!-- Value Column -->
+        <ng-container matColumnDef="value">
+          <mat-header-cell *matHeaderCellDef> Значення </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.value}} </mat-cell>
+        </ng-container>
+
+        <!-- Type Column -->
+        <ng-container matColumnDef="type">
+          <mat-header-cell *matHeaderCellDef> Тип </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.attributeType.name}} </mat-cell>
+        </ng-container>
+
+        <!-- Author Column -->
+        <ng-container matColumnDef="author">
+          <mat-header-cell *matHeaderCellDef> Автор </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.author}} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="attrDisplayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: attrDisplayedColumns;"></mat-row>
+      </mat-table>
+
+      <mat-paginator #paginator
+                     [length]="this.attrDataSource.elemCount"
+                     [pageSize]="10"
+                     [pageSizeOptions]="[5, 10, 20]"
+                     [showFirstLastButtons]="true"
+                     (page)="loadAttributesPage()"
+                     class="mat-elevation-z3">
+      </mat-paginator>
+    </mat-tab>
+    <mat-tab label="Відповідальні"></mat-tab>
+  </mat-tab-group>
+</mat-card>
+

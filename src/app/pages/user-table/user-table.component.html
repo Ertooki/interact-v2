@@ -1,0 +1,64 @@
+<form [formGroup]="filterForm">
+  <mat-form-field>
+    <mat-select placeholder="Організація" formControlName = "organization" (selectionChange)="onOrganizationChange($event)">
+      <mat-option *ngFor="let organization of organizations" [value]="organization.id">
+        {{ organization.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>
+<mat-table #table [dataSource]="dataSource" class="mat-elevation-z3">
+
+  <!-- ID Column -->
+  <ng-container matColumnDef="id">
+    <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="username">
+    <mat-header-cell *matHeaderCellDef> Ім'я </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.username}} </mat-cell>
+  </ng-container>
+
+  <!-- Email Column -->
+  <ng-container matColumnDef="email">
+    <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
+  </ng-container>
+
+  <!-- Organization Column -->
+  <ng-container matColumnDef="organization">
+    <mat-header-cell *matHeaderCellDef> Організація </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.organization}} </mat-cell>
+  </ng-container>
+
+  <!-- Role Column -->
+  <ng-container matColumnDef="role">
+    <mat-header-cell *matHeaderCellDef> Роль </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <mat-select placeholder="Роль" (selectionChange)="onRoleChange(element.id, $event)" [value]="element.role" [disabled]="element.role === 4">
+        <mat-option *ngFor="let role of roles" [value]="role.value">
+          {{ role.name }}
+        </mat-option>
+      </mat-select>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Active Column -->
+  <ng-container matColumnDef="active">
+    <mat-header-cell *matHeaderCellDef> Активований </mat-header-cell>
+    <mat-cell *matCellDef="let element"> <mat-slide-toggle [checked]="element.role !== 4" (change)="changeUserState(element.id, $event)"></mat-slide-toggle> </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+
+<mat-paginator #paginator
+               [length]="this.dataSource.elemCount"
+               [pageSize]="10"
+               [pageSizeOptions]="[5, 10, 20]"
+               [showFirstLastButtons]="true"
+               class="mat-elevation-z3">
+</mat-paginator>
